@@ -11,7 +11,6 @@ import './App.scss';
 class App extends Component {
 
   componentDidMount() {
-    console.log('hello, mounted.');
     document.title = "Crelb.in Chat";
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -19,6 +18,26 @@ class App extends Component {
       } else {
         console.log('who are you?');
       }
+    });
+
+    // initialize firebase cloud messaging
+    const fcm = firebase.messaging();
+    fcm.requestPermission().then(() => {
+      console.log('permission granted');
+      return fcm.getToken();
+    })
+    .then( (token) => {
+      console.log('token', token);
+    //   // const newKey = firebase.database().ref('/tokens/').push().key;
+    //   // firebase.database.ref('/tokens/' + newKey).update(token);
+    //   firebase.database.ref('/users/' + firebase.auth().currentUser.uid).update({token: token});
+    })
+    .catch((e) => {
+      console.log('error aquiring permission for notifications', e);
+    });
+
+    fcm.onMessage((payload) => {
+      console.log('onMessage: ', payload);
     });
   }
 
