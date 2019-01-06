@@ -42,6 +42,12 @@ class App extends Component {
 
   }
 
+  loginAnon() {
+    firebase.auth().signInAnonymously()
+    .catch((err) => {
+      console.log(err.code, err.message);
+    });
+  }
 
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -72,6 +78,10 @@ class App extends Component {
           <button
             onClick={this.loginWithGoogle} >
             login with google
+          </button>
+          <button
+            onClick={this.loginAnon} >
+            login anonymously
           </button>
           <BrowserRouter>
             <div className="router">

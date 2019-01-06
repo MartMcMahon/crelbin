@@ -3,11 +3,10 @@
 // are not available in the service worker.
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
-const apiKey = require('./.env');
 
 // Initialize Firebase
 const config = {
-  apiKey: apiKey,
+  apiKey: "AIzaSyBvYa80AdA6t4bWOdzwS6CT8C4x5XSSKjc",
   authDomain: "crelbinchat.firebaseapp.com",
   databaseURL: "https://crelbinchat.firebaseio.com",
   projectId: "crelbinchat",
