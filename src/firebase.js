@@ -1,5 +1,5 @@
 const firebase = require('firebase');
-const apiKey = require('./.ENV');
+const apiKey = require('./.env');
 // const admin = require('firebase-admin');
 
 // Initialize Firebase

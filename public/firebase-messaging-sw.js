@@ -3,7 +3,7 @@
 // are not available in the service worker.
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
-const apiKey = require('./.ENV');
+const apiKey = require('./.env');
 
 // Initialize Firebase
 const config = {
