@@ -18,9 +18,11 @@ class ChatPage extends React.Component {
     const messages = firebase.database().ref('/dialog/messages/');
     console.log('messages', messages);
     messages.on('value', (snapshot) => {
-    console.log('val', snapshot.val());
+      console.log('val', snapshot.val());
       this.setState({'messages': snapshot.val()});
     });
+
+    // this.setState({ 'messages': {'0': {'sender': 'mart', 'body': 'party'}} });
 
     const users = firebase.database().ref('/users/');
     users.on('value', snapshot => {
@@ -46,10 +48,30 @@ class ChatPage extends React.Component {
 
     this.setState({ newMessage: '' });
 
-    return firebase.database().ref('/dialog/messages/').update(updates);
+    console.log('pretending to send', postData);
+    return firebase.database().ref('/dialog/messages/').update(updates)
+      // .then(() => {
+      //   fetch('https://us-central1-crelbinchat.cloudfunctions.net/addMessage?text=yippie-ki-yay', {
+      //     method: 'GET'
+      //   });
+      // });
+      // firebase.messaging().send({title: 'ok', body: 'cool', sender: 'mr testguy'})
+    //
+      // .then(res => {
+      //   console.log('sent the message!', res);
+      // })
+      // .catch(err => {
+      //   console.log('error sending the message', err);
+      // });
+    // });
   }
 
   render() {
+    const tokens = Object.keys(this.state.users).map( key => {
+      if (!!this.state.users[key].token) {
+        return this.state.users[key].token;
+      }
+    });
     return <div className="chatpage">
       <div className="dialog-container">
         <div className="messages-container">

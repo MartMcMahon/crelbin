@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^5.7.1",
+    "firebase-admin": "^6.4.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
     "node-sass": "^4.11.0",

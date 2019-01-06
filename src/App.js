@@ -4,7 +4,6 @@ import { observer } from 'mobx-react';
 
 import firebase from './firebase';
 import { routes } from './routes';
-
 import logo from './logo.svg';
 import './App.scss';
 
@@ -15,31 +14,34 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         console.log('hello', user);
+
+        // initialize firebase cloud messaging
+        const fcm = firebase.messaging();
+        fcm.requestPermission().then(() => {
+          console.log('permission granted');
+          return fcm.getToken();
+        })
+        .then( (token) => {
+          console.log('token', token);
+          // const newKey = firebase.database().ref('/tokens/').push().key;
+          // firebase.database.ref('/tokens/' + newKey).update(token);
+          firebase.database().ref('/users/' + firebase.auth().currentUser.uid).set({token: token});
+        })
+        .catch((e) => {
+          console.log('error aquiring permission for notifications', e);
+        });
+
+        fcm.onMessage((payload) => {
+          console.log('onMessage: ', payload);
+        });
+
       } else {
-        console.log('who are you?');
+            console.log('who are you?');
       }
     });
 
-    // initialize firebase cloud messaging
-    const fcm = firebase.messaging();
-    fcm.requestPermission().then(() => {
-      console.log('permission granted');
-      return fcm.getToken();
-    })
-    .then( (token) => {
-      console.log('token', token);
-    //   // const newKey = firebase.database().ref('/tokens/').push().key;
-    //   // firebase.database.ref('/tokens/' + newKey).update(token);
-    //   firebase.database.ref('/users/' + firebase.auth().currentUser.uid).update({token: token});
-    })
-    .catch((e) => {
-      console.log('error aquiring permission for notifications', e);
-    });
-
-    fcm.onMessage((payload) => {
-      console.log('onMessage: ', payload);
-    });
   }
+
 
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
