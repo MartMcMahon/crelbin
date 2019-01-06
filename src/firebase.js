@@ -1,10 +1,9 @@
 const firebase = require('firebase');
-const apiKey = require('./.env');
 // const admin = require('firebase-admin');
 
 // Initialize Firebase
 const config = {
-  apiKey: apiKey,
+  apiKey: "AIzaSyBvYa80AdA6t4bWOdzwS6CT8C4x5XSSKjc",
   authDomain: "crelbinchat.firebaseapp.com",
   databaseURL: "https://crelbinchat.firebaseio.com",
   projectId: "crelbinchat",
